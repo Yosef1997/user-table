@@ -3,13 +3,14 @@
 import { Button } from './ui/button'
 import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
+import { SidebarTrigger } from './ui/sidebar'
 
-export function Header() {
+const Header = () => {
   const { setTheme, theme } = useTheme()
 
   return (
-    <header className='flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6'>
-      <div className='w-full flex-1'></div>
+    <header className=' flex h-14 items-center justify-between gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6'>
+      <SidebarTrigger variant={'outline'} size='icon' />
       <Button
         variant='outline'
         size='icon'
@@ -22,3 +23,5 @@ export function Header() {
     </header>
   )
 }
+
+export default Header
