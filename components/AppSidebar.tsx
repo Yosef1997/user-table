@@ -16,7 +16,7 @@ import { useRouter } from 'next/navigation'
 const menus = [
   {
     title: 'Dashboard',
-    url: '/dashboard',
+    url: '/',
     icon: Home,
   },
   {
