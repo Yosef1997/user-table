@@ -15,6 +15,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import { useState } from 'react'
 
 const LoginSchema = z.object({
   username: z.string().nonempty('Username required'),
@@ -23,6 +24,7 @@ const LoginSchema = z.object({
 
 const Login = () => {
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -33,12 +35,14 @@ const Login = () => {
   })
 
   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
+    setIsLoading(true)
     try {
       const res = await fetch('/api/login', {
         method: 'POST',
         body: JSON.stringify(values),
       })
 
+      setIsLoading(false)
       if (res.ok) {
         router.push('/')
       } else {
@@ -49,6 +53,7 @@ const Login = () => {
       console.error(error)
       toast('Something wrong with login')
     }
+    setIsLoading(false)
   }
 
   return (
@@ -89,8 +94,8 @@ const Login = () => {
               )}
             />
 
-            <Button type='submit' variant={'default'}>
-              Login
+            <Button type='submit' variant={'default'} disabled={isLoading}>
+              {isLoading ? 'loading...' : 'Login'}
             </Button>
           </form>
         </Form>
