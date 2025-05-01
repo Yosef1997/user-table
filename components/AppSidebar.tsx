@@ -1,5 +1,5 @@
 'use client'
-import { Home, LogOut, Newspaper } from 'lucide-react'
+import { Home, LogOut } from 'lucide-react'
 import {
   Sidebar,
   SidebarContent,
@@ -18,11 +18,6 @@ const menus = [
     title: 'Dashboard',
     url: '/',
     icon: Home,
-  },
-  {
-    title: 'Post',
-    url: '/post',
-    icon: Newspaper,
   },
 ]
 

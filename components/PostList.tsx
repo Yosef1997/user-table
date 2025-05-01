@@ -5,7 +5,7 @@ interface PostListProps {
   posts: Post[]
 }
 
-export function PostList({ posts }: PostListProps) {
+const PostList: React.FC<PostListProps> = ({ posts }) => {
   return (
     <div className='space-y-4'>
       {posts.map((post) => (
@@ -17,3 +17,5 @@ export function PostList({ posts }: PostListProps) {
     </div>
   )
 }
+
+export default PostList

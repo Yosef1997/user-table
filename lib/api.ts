@@ -23,7 +23,7 @@ export const updateUser = async (userId: string, req: Partial<User>) => {
 
 export const fetchUserPosts = async (userId: number) => {
   const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_BASE}/posts?userId${userId}`
+    `${process.env.NEXT_PUBLIC_API_BASE}/posts?userId=${userId}`
   )
 
   return data

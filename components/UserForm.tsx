@@ -27,9 +27,12 @@ const formSchema = z.object({
   email: z.string().email({
     message: 'Invalid email address.',
   }),
-  phone: z.string().min(6, {
-    message: 'Phone must be at least 6 characters.',
-  }),
+  phone: z
+    .string()
+    .min(6, { message: 'Phone must be at least 6 characters.' })
+    .regex(/^[0-9-]+$/, {
+      message: 'Phone must only contain numbers.',
+    }),
   website: z.string().min(2, {
     message: 'Website must be at least 2 characters.',
   }),
@@ -39,7 +42,7 @@ interface UserFormProps {
   user: User
 }
 
-export function UserForm({ user }: UserFormProps) {
+const UserForm: React.FC<UserFormProps> = ({ user }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -143,3 +146,5 @@ export function UserForm({ user }: UserFormProps) {
     </Form>
   )
 }
+
+export default UserForm
