@@ -36,7 +36,7 @@ const AppSidebar = () => {
       })
 
       if (res.ok) {
-        router.push('/dashboard')
+        router.push('/login')
       } else {
         const data = await res.json()
         toast(data.message || 'Login failed')
