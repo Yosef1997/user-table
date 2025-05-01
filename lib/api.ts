@@ -13,12 +13,12 @@ export const fetchUserDetail = async (userId: number) => {
   return data
 }
 
-export const updateUserDetail = async (req: User) => {
-  const { data } = await axios.put(
-    `${process.env.NEXT_PUBLIC_API_BASE}/users/${req.id}`,
+export const updateUser = async (userId: string, req: Partial<User>) => {
+  const { data: user } = await axios.put(
+    `${process.env.NEXT_PUBLIC_API_BASE}/users/${userId}`,
     req
   )
-  return data
+  return user
 }
 
 export const fetchUserPosts = async (userId: number) => {

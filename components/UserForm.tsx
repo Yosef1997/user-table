@@ -14,6 +14,8 @@ import {
   FormMessage,
 } from './ui/form'
 import { Input } from './ui/input'
+import { toast } from 'sonner'
+import { useUpdateUser } from '@/hooks/use-updateUser'
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -48,10 +50,20 @@ export function UserForm({ user }: UserFormProps) {
       website: user.website,
     },
   })
+  const { mutate: updateUser, isPending } = useUpdateUser()
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
-    // In a real app, you would update the user data here
+    updateUser(
+      { userId: user.id.toString(), data: values },
+      {
+        onSuccess: () => {
+          toast('User updated successfully')
+        },
+        onError: () => {
+          toast('Failed to update user')
+        },
+      }
+    )
   }
 
   return (
@@ -124,7 +136,9 @@ export function UserForm({ user }: UserFormProps) {
             )}
           />
         </div>
-        <Button type='submit'>Save Changes</Button>
+        <Button type='submit' disabled={isPending}>
+          {isPending ? 'Saving...' : 'Save Changes'}
+        </Button>
       </form>
     </Form>
   )
